@@ -36,3 +36,22 @@ jobs:
           context: .
           push: false
           tags: user/app:latest
+
+
+  discord:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+
+    name: Send a message to Microsoft Teams
+    uses: aliencube/microsoft-teams-actions@v0.8.0
+    with:
+      webhook_uri: https://outlook.office.com/webhook/<GUID>/IncomingWebhook/<GUID>
+      title: <Message Title>
+      summary: <Message Summary>
+      text: <Message Text>
+      theme_color: <Message Theme Color>
+      sections: '[{ "activityTitle": "hello world" }, { ... }]'
+      actions: '[{ "@type": "OpenUri", "name": "lorem ipsum", "targets": [{ "os": "default", "uri": "https://localhost" }] }, { ... }]'
+  For more details about sections and actions:
