@@ -38,20 +38,20 @@ jobs:
           tags: user/app:latest
 
 
-  discord:
+  testes:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Test with pytest
+      run: |
+        pip install pytest pytest-cov
+        pytest test/tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
 
-    - uses: actions/checkout@v2
-
-    name: Send a message to Microsoft Teams
-    uses: aliencube/microsoft-teams-actions@v0.8.0
-    with:
-      webhook_uri: https://outlook.office.com/webhook/<GUID>/IncomingWebhook/<GUID>
-      title: <Message Title>
-      summary: <Message Summary>
-      text: <Message Text>
-      theme_color: <Message Theme Color>
-      sections: '[{ "activityTitle": "hello world" }, { ... }]'
-      actions: '[{ "@type": "OpenUri", "name": "lorem ipsum", "targets": [{ "os": "default", "uri": "https://localhost" }] }, { ... }]'
-  For more details about sections and actions:
